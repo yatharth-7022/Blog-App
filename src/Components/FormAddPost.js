@@ -1,5 +1,7 @@
-import { useState } from "react";
-function FormAddPost({ onAddPost }) {
+import { useContext, useState } from "react";
+import { PostContext } from "../App";
+function FormAddPost() {
+  const { onAddPost } = useContext(PostContext);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
@@ -10,6 +12,7 @@ function FormAddPost({ onAddPost }) {
     setTitle("");
     setBody("");
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <input
