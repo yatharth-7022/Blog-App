@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useMemo, useState } from "react";
 import { faker } from "@faker-js/faker";
 import Header from "./Components/Header";
 import Main from "./Components/Main";
@@ -45,18 +45,19 @@ function App() {
     [isFakeDark]
   );
 
+  const value = useMemo(() => {
+    return {
+      posts: searchedPosts,
+      onAddPost: handleAddPost,
+      onClearPost: handleClearPosts,
+      createRandomPost: createRandomPost,
+      searchQuery,
+      setSearchQuery,
+    };
+  }, [searchedPosts, searchQuery]);
   return (
     //2)Provide value to the child componentss
-    <PostContext.Provider
-      value={{
-        posts: searchedPosts,
-        onAddPost: handleAddPost,
-        onClearPost: handleClearPosts,
-        createRandomPost: createRandomPost,
-        searchQuery,
-        setSearchQuery,
-      }}
-    >
+    <PostContext.Provider value={value}>
       <section>
         <button
           onClick={() => setIsFakeDark((isFakeDark) => !isFakeDark)}
